@@ -4,3 +4,10 @@
 *.o
 *.elf
 *.hex
+
+#altium
+altium/History
+altium/__Previews
+altium/Project Logs for kypca4_altium/*.LOG
+*.pdf
+
