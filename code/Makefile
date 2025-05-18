@@ -37,7 +37,7 @@ $(BUILD_DIR)/$(TARGET).elf: $(OBJ)
 $(BUILD_DIR)/$(TARGET).hex: $(BUILD_DIR)/$(TARGET).elf
 	avr-objcopy -O ihex $< $@
 
-
+# for arduino nano
 flash: $(BUILD_DIR)/$(TARGET).hex
 	avrdude -p m328p -c arduino \
 		-P $(PORT) -b $(BAUD) \
