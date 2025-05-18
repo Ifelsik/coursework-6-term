@@ -5,7 +5,9 @@
 
 
 int main() {
-    uart_init(F_CPU, BAUD);
+    // disable in product mode 
+    // in PCB uart's pins are used as GPIO
+    // uart_init(F_CPU, BAUD);
 
     spi_init();
     DEBUG_PRINT("SPI initialized\r\n");
@@ -16,8 +18,8 @@ int main() {
     DEBUG_PRINT("display orientation set LANDSCAPE\r\n");
     st7735_fill_rect(0, 0, 160, 128, ST7735_COLOR_BLACK);
 
-    st7735_draw_mono_bitmap(16, 4, (PGM_P) logo_bw, ST7735_COLOR_WHITE, ST7735_COLOR_BLACK);
-    DEBUG_PRINT("img loaded\r\n");
+    // st7735_draw_mono_bitmap(16, 4, (PGM_P) logo_bw, ST7735_COLOR_WHITE, ST7735_COLOR_BLACK);
+    // DEBUG_PRINT("img loaded\r\n");
     _delay_ms(500);
 
     ball_t ball_current;

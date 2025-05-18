@@ -82,15 +82,19 @@ static inline bool __isObjectsCollision(pixel_t obj1[], pixel_t obj2[], uint8_t 
 }
 
 void game_init(ball_t ball, racket_t racket1, racket_t racket2, score_t *score) {
-    setPinIOMode(&DDRB, DDB0, PORT_MODE_IN);
-    setPinIOMode(&DDRB, DDB1, PORT_MODE_IN);
-    setPinIOMode(&DDRC, DDC4, PORT_MODE_IN);
-    setPinIOMode(&DDRC, DDC5, PORT_MODE_IN);
+    // buttons initialization
+    setPinIOMode(&DDRC, DDC3, PORT_MODE_IN);
+    setPinIOMode(&DDRC, DDC2, PORT_MODE_IN);
+    setPinIOMode(&DDRC, DDC1, PORT_MODE_IN);
+    setPinIOMode(&DDRC, DDC0, PORT_MODE_IN);
 
-    setPinValue(&PORTB, PORTB0, 1); // enable pull-up resistor
-    setPinValue(&PORTB, PORTB1, 1);
-    setPinValue(&PORTC, PORTC4, 1);
-    setPinValue(&PORTC, PORTC5, 1);
+    // enable pull-up resistor for buttons
+    setPinValue(&PORTC, PORTC3, 1); 
+    setPinValue(&PORTC, PORTC2, 1);
+    setPinValue(&PORTC, PORTC1, 1);
+    setPinValue(&PORTC, PORTC0, 1);
+
+    game_init_LEDs();
 
     st7735_set_orientation(ST7735_LANDSCAPE);
 
@@ -235,19 +239,19 @@ void game_handleGoal(ball_t ball, racket_t racket1, racket_t racket2, score_t *s
 }
 
 bool game_controller_1_isLeftBtnClicked() {
-    return !getPinValue(PINB, PINB0);
+    return !getPinValue(PINC, PINC2);
 }
 
 bool game_controller_1_isRightBtnClicked() {
-    return !getPinValue(PINB, PINB1);
+    return !getPinValue(PINC, PINC3);
 }
 
 bool game_controller_2_isLeftBtnClicked() {
-    return !getPinValue(PINC, PINC4);
+    return !getPinValue(PINC, PINC0);
 }
 
 bool game_controller_2_isRightBtnClicked() {
-    return !getPinValue(PINC, PINC5);
+    return !getPinValue(PINC, PINC1);
 }
 
 char* _numbers[] = {
@@ -308,4 +312,14 @@ void game_renderScore(score_t *score) {
     }
 
     st7735_set_orientation(ST7735_LANDSCAPE);
+}
+
+void game_init_LEDs() {
+    setPinIOMode(&DDRD, DDD0, PORT_MODE_OUT);
+    setPinIOMode(&DDRD, DDD1, PORT_MODE_OUT);
+    setPinIOMode(&DDRD, DDD2, PORT_MODE_OUT);
+
+    setPinValue(&PORTD, PORTD0, 1);
+    setPinValue(&PORTD, PORTD1, 1);
+    setPinValue(&PORTD, PORTD2, 1);
 }

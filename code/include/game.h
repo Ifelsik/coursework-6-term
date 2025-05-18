@@ -66,4 +66,6 @@ bool game_controller_2_isRightBtnClicked();
 
 void game_renderScore(score_t *score);
 
+void game_init_LEDs();
+
 #endif
